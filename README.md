@@ -22,7 +22,7 @@ The PetsMain program is an interactive console application for the comprehensive
 
 - **ER Diagram:**
 
-<img src="DiagramaClases.jpg" width="80%" alt="home">
+<img src="DiagramaER.jpg" width="80%" alt="home">
 
 - **UML Diagram:**
   
