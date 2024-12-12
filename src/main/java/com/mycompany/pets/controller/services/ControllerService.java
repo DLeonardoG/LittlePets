@@ -11,6 +11,7 @@ import com.mycompany.pets.model.persistence.CRUD;
 import com.mycompany.pets.model.persistence.DBConnection;
 import com.mycompany.pets.model.classes.superclasses.Service;
 import com.mycompany.pets.model.classes.superclasses.Type;
+import com.mycompany.pets.model.classes.utilities.AnimalUtils;
 import com.mycompany.pets.model.classes.utilities.Utility;
 import com.mycompany.pets.model.classes.utilities.UtilityTime;
 import java.sql.ResultSet;
@@ -102,7 +103,7 @@ public abstract class ControllerService implements Readable, Createable, Updatea
                 service.setIdService(rs.getInt("IDService"));
                 service.setDate(UtilityTime.changeSqlDate(rs.getString("date")));
                 service.setEmployeee(ControllerEmployee.search(rs.getInt("IDEmployee")));
-                service.setPet(new Pet(rs.getInt("IDPet")));
+                service.setPet(AnimalUtils.());
                 service.setTypeService(ControllerType.search(rs.getInt("IDTypeService"), "ServiceType"));
                 String statusString = rs.getString("status");
                 Status status = Status.valueOf(statusString.toUpperCase());
