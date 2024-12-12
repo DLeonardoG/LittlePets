@@ -26,7 +26,7 @@ The PetsMain program is an interactive console application for the comprehensive
 
 - **UML Diagram:**
   
-<img src="/readme/films.png" width="80%" alt="home">
+<img src="DiagramaClases.jpg" width="80%" alt="home">
   
 **Main Features**:
 - Allows registering and updating information for pets and owners.
