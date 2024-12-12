@@ -19,9 +19,10 @@ This program is designed to manage the operations of a veterinary clinic. Its go
 The PetsMain program is an interactive console application for the comprehensive management of a veterinary clinic. Through a main menu, the program allows the user to select different options covering various key areas of the clinic. Below is a detailed explanation of the program's content based on the different functionalities implemented in the menu options:
 
 **General Structure**:
-- ER Diagram:
-- UML Diagram: 
-- Main Menu: Presents the available options for the user and allows navigation between them. After each selection, the program performs the corresponding operation and then returns to the menu to continue.
+- **ER Diagram:**
+- **UML Diagram:**
+- **Main menu:**
+Presents the available options for the user and allows navigation between them. After each selection, the program performs the corresponding operation and then returns to the menu to continue.
   
 **Main Features**:
 - Allows registering and updating information for pets and owners.
