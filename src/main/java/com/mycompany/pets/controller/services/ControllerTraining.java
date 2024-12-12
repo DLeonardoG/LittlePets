@@ -2,12 +2,14 @@ package com.mycompany.pets.controller.services;
 
 import com.mycompany.pets.controller.ControllerType;
 import com.mycompany.pets.controller.ControllerTypePrice;
+import com.mycompany.pets.controller.animal.ControllerAnimal;
 import com.mycompany.pets.controller.people.ControllerEmployee;
 import com.mycompany.pets.model.classes.animals.Pet;
 import com.mycompany.pets.model.classes.enumsandinterfaces.Createable;
 import com.mycompany.pets.model.classes.enumsandinterfaces.Status;
 import com.mycompany.pets.model.classes.enumsandinterfaces.Updateable;
 import com.mycompany.pets.model.classes.services.Training;
+import com.mycompany.pets.model.classes.superclasses.Animal;
 import com.mycompany.pets.model.classes.utilities.Utility;
 import com.mycompany.pets.model.classes.utilities.UtilityTime;
 import com.mycompany.pets.model.persistence.CRUD;
@@ -66,6 +68,7 @@ public abstract class ControllerTraining implements Readable, Createable, Update
         try {
             ResultSet rs = CRUD.consultDB(sql, parameters);
             while (rs != null && rs.next()) {
+                Animal h = ControllerAnimal.search(rs.getInt("IDPet"));
                 Training training = new Training(
                         rs.getString("estimatedTime"),
                         rs.getString("IDTraining"),
@@ -75,7 +78,7 @@ public abstract class ControllerTraining implements Readable, Createable, Update
                         rs.getInt("IDService"),
                         UtilityTime.changeSqlDate(rs.getString("date")),
                         // todo lo pet no funciona
-                        new Pet(rs.getInt("IDPet")),// esto hay que modularlo y actualizarzo
+                        h,// esto hay que modularlo y actualizarzo
                         ControllerEmployee.search(rs.getInt("IDEmployee")),
                         ControllerType.search(rs.getInt("IDTypeService"), "ServiceType"),
                         Status.valueOf(rs.getString("status")),
@@ -104,6 +107,7 @@ public abstract class ControllerTraining implements Readable, Createable, Update
         try {
             ResultSet rs = CRUD.consultDB(query, parameters);
             if (rs != null && rs.next()) {
+                Animal h = ControllerAnimal.search(rs.getInt("IDPet"));
                 return new Training(
                         rs.getString("estimatedTime"),
                         rs.getString("IDTraining"),
@@ -112,7 +116,7 @@ public abstract class ControllerTraining implements Readable, Createable, Update
                         rs.getDouble("totalPrice"),
                         rs.getInt("IDService"),
                         UtilityTime.changeSqlDate(rs.getString("date")),
-                        new Pet(rs.getInt("IDPet")),
+                        h,
                         ControllerEmployee.search(rs.getInt("IDEmployee")),
                         ControllerType.search(rs.getInt("IDTypeService"), "ServiceType"),
                         Status.valueOf(rs.getString("status")),

@@ -28,7 +28,6 @@ public class ServiceFactory {
 
     public static Service registerService(Scanner scanner, Type type) {
         LocalDateTime appoinment = UtilityTime.getValidatedDate(scanner);
-        String petName = Utility.getValidInput(scanner, "Enter pet name:");
         Animal pet = AnimalUtils.displayAndSelectAnimal();
         Employee employee = ControllerEmployee.assign(scanner);
         int max = Utility.getMaxValue(ControllerService.list(), Service::getIdService) + 1;

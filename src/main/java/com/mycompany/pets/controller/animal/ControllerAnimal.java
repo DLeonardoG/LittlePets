@@ -132,6 +132,47 @@ public class ControllerAnimal {
             throw new SQLException("Error al insertar identificador del animal.");
         }
     }
+    
+    public static Animal search(int id) {
+    CRUD.setConnection(DBConnection.connectionDB());
+    String query = """
+                   SELECT 
+                       IDPet, name, dateBirth, sex, weight, conditions, allergies, 
+                       isAvailable, urlPhoto, IDTypeSpecies, IDOwner
+                   FROM 
+                       Pets
+                   WHERE 
+                       IDPet = ?""";
+    List<Object> parameters = new ArrayList<>();
+    parameters.add(id);
+
+    try {
+        ResultSet rs = CRUD.consultDB(query, parameters);
+        if (rs != null && rs.next()) {
+            // Obtener datos básicos del animal
+            int animalId = rs.getInt("IDPet");
+            int speciesId = rs.getInt("IDTypeSpecies");
+            Owner owner = ControllerOwner.search(rs.getInt("IDOwner"));
+
+            // Obtener el identificador del animal
+            Identifier identifier = getIdentifierForAnimal(animalId);
+
+            // Crear el animal utilizando la especie y el identificador
+            Animal animal = createAnimalBySpeciesId(speciesId, rs, owner, identifier);
+
+            // Asignar características al animal
+            animal.setCharacteristics(getCharacteristicsForAnimal(animalId));
+
+            return animal;
+        }
+    } catch (SQLException e) {
+        System.out.println("Error while searching for Animal: " + e.getMessage());
+    } finally {
+        CRUD.closeCon();
+    }
+    return null;
+}
+
 
     // Method to list all animals
     public static List<Animal> listAnimals() {

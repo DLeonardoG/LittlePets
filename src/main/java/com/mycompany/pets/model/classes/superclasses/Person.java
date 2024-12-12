@@ -61,9 +61,15 @@ public class Person {
     public void setEmail(String email) {
         this.email = email;
     }
+@Override
+public String toString() {
+    return "---------------------\n" +
+           "ID: " + ID + "\n" +
+           "Name: " + name + "\n" +
+           "Phone: " + phoneNumber + "\n" +
+           "Email: " + email + "\n" +
+           "Internal ID: " + id + "\n" +
+           "---------------------";
+}
 
-    @Override
-    public String toString() {
-        return "Persona{" + "id=" + id + ", ID=" + ID + ", name=" + name + ", phoneNumber=" + phoneNumber + ", email=" + email + '}';
-    }
 }

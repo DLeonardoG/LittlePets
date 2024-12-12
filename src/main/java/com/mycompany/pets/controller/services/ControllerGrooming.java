@@ -5,12 +5,14 @@
 package com.mycompany.pets.controller.services;
 
 import com.mycompany.pets.controller.ControllerType;
+import com.mycompany.pets.controller.animal.ControllerAnimal;
 import com.mycompany.pets.controller.people.ControllerEmployee;
 import com.mycompany.pets.model.classes.services.Grooming;
 import com.mycompany.pets.model.classes.animals.Pet;
 import com.mycompany.pets.model.classes.TypePrice;
 import com.mycompany.pets.model.classes.enumsandinterfaces.Createable;
 import com.mycompany.pets.model.classes.enumsandinterfaces.Updateable;
+import com.mycompany.pets.model.classes.superclasses.Animal;
 import com.mycompany.pets.model.classes.superclasses.Service;
 import com.mycompany.pets.model.classes.superclasses.Type;
 import com.mycompany.pets.model.classes.utilities.Utility;
@@ -86,11 +88,12 @@ public static List<Grooming> list() {
 
         while (rs != null && rs.next()) {
             // Crear servicio base
+            Animal h = ControllerAnimal.search(rs.getInt("IDPet"));
             Service baseService = new Service();
                     baseService.setIdService(rs.getInt("IDService"));
                     baseService.setDate(UtilityTime.changeSqlDate(rs.getString("dateService")));
                     baseService.setEmployeee(ControllerEmployee.search(rs.getInt("IDEmployee")));
-                    baseService.setPet(new Pet(rs.getInt("IDPet")));
+                    baseService.setPet(h);
                     baseService.setTypeService(ControllerType.search(rs.getInt("IDTypeService"), "Service"));
 
             // Crear tipo de grooming
@@ -142,11 +145,12 @@ public static Grooming search(int id) {
         ResultSet rs = CRUD.consultDB(query, parameters);
         if (rs != null && rs.next()) {
             // Crear servicio base
+            Animal h = ControllerAnimal.search(rs.getInt("IDPet"));
             Service baseService = new Service();
             baseService.setIdService(rs.getInt("IDService"));
             baseService.setDate(UtilityTime.changeSqlDate(rs.getString("dateService")));
             baseService.setEmployeee(ControllerEmployee.search(rs.getInt("IDEmployee")));
-            baseService.setPet(new Pet(rs.getInt("IDPet")));
+            baseService.setPet(h);
             baseService.setTypeService(ControllerType.search(rs.getInt("IDTypeService"), "Service"));
             TypePrice type = new TypePrice();
             type.setId(rs.getInt("IDTypeGrooming"));

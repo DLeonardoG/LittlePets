@@ -30,6 +30,8 @@ public abstract class Utility {
         }
     }
 
+    
+    
     public static int getIntFromUser(Scanner scanner) {
         while (true) {
             try {

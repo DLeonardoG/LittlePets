@@ -150,5 +150,21 @@ public abstract class Animal {
     public void setIdentifier(Identifier identifier) {
         this.identifier = identifier;
     }
-    
+    @Override
+public String toString() {
+    return "Animal{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", birthDate='" + birthDate + '\'' +
+            ", sex='" + sex + '\'' +
+            ", weight=" + weight +
+            ", conditions='" + conditions + '\'' +
+            ", allergies='" + allergies + '\'' +
+            ", isAvailable='" + isAvailable + '\'' +
+            ", owner=" + owner +
+            ", identifier=" + identifier +
+            ", characteristics=" + characteristics +
+            '}';
+}
+
 }

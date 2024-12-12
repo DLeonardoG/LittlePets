@@ -163,7 +163,7 @@ public abstract class ControllerOwner implements Readable, Createable, Updateabl
         parameters.add(owner.getPoints());
         parameters.add(owner.isSubscripcion());
         parameters.add(owner.getCUFE());
-        parameters.add(owner.getContact());
+        parameters.add(owner.getContact().getId());
         parameters.add(owner.getId());
 
         try {

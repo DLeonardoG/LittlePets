@@ -4,7 +4,6 @@ import com.mycompany.pets.controller.people.ControllerEmployee;
 import com.mycompany.pets.controller.services.ControllerService;
 import com.mycompany.pets.controller.ControllerType;
 import com.mycompany.pets.model.classes.people.Employee;
-import com.mycompany.pets.model.classes.animals. ;
 import com.mycompany.pets.model.classes.enumsandinterfaces.Status;
 import com.mycompany.pets.model.classes.superclasses.Type;
 import com.mycompany.pets.model.classes.utilities.UtilityTime;

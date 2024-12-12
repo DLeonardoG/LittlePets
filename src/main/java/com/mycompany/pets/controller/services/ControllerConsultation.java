@@ -5,10 +5,12 @@
 package com.mycompany.pets.controller.services;
 
 import com.mycompany.pets.controller.ControllerType;
+import com.mycompany.pets.controller.animal.ControllerAnimal;
 import com.mycompany.pets.controller.people.ControllerEmployee;
 import com.mycompany.pets.model.classes.services.Consultation;
 import com.mycompany.pets.model.classes.animals.Pet;
 import com.mycompany.pets.model.classes.enumsandinterfaces.Status;
+import com.mycompany.pets.model.classes.superclasses.Animal;
 import com.mycompany.pets.model.classes.superclasses.Service;
 import com.mycompany.pets.model.classes.utilities.Utility;
 import com.mycompany.pets.model.classes.utilities.UtilityTime;
@@ -92,10 +94,11 @@ public static List<Consultation> list() {
     try {
         ResultSet rs = CRUD.consultDB(sql, parameters);
         while (rs != null && rs.next()) {
+            Animal h = ControllerAnimal.search(rs.getInt("IDPet"));
             Service service = new Service(
                     rs.getInt("IDService"),
                     UtilityTime.changeSqlDate(rs.getString("dateService")),
-                    new Pet(rs.getInt("IDPet")),
+                    h,
                     ControllerEmployee.search(rs.getInt("IDEmployee")),
                     ControllerType.search(rs.getInt("IDTypeService"), "Service"),
                     Status.valueOf(rs.getString("serviceStatus")), // Usar alias
@@ -154,11 +157,12 @@ public static Consultation search(int id) {
     try {
         ResultSet rs = CRUD.consultDB(query, parameters);
         if (rs != null && rs.next()) {
+            Animal h = ControllerAnimal.search(rs.getInt("IDPet"));
             Service baseService = new Service();
             baseService.setIdService(rs.getInt("IDService"));
             baseService.setDate(UtilityTime.changeSqlDate(rs.getString("dateService")));
             baseService.setEmployeee(ControllerEmployee.search(rs.getInt("IDEmployee")));
-            baseService.setPet(new Pet(rs.getInt("IDPet")));
+            baseService.setPet(h);
             baseService.setTypeService(ControllerType.search(rs.getInt("IDTypeService"), "Service"));
 
             Consultation consultation = new Consultation.Builder(baseService)

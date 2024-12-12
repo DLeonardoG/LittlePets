@@ -4,6 +4,7 @@ import com.mycompany.pets.model.classes.people.Employee;
 import com.mycompany.pets.model.classes.animals.Pet;
 import com.mycompany.pets.model.classes.enumsandinterfaces.Facturable;
 import com.mycompany.pets.model.classes.enumsandinterfaces.Status;
+import com.mycompany.pets.model.classes.superclasses.Animal;
 import com.mycompany.pets.model.classes.superclasses.Service;
 import com.mycompany.pets.model.classes.superclasses.Type;
 import java.time.LocalDateTime;
@@ -77,19 +78,27 @@ public class Consultation extends Service implements Facturable{
                 + "\nprice: " + price
                 + "\n-----------------\n";
     }
-    @Override
-    public String toString() {
-        return "Consultation{"
-                + "idConsultation=" + idConsultation
-                + ", reason=" + reason
-                + ", isControl=" + isControl
-                + ", price=" + price
-                + ", recommendations='" + recommendations + '\''
-                + ", diagnostic='" + diagnostic + '\''
-                + ", services=" + services
-                + ", supplies=" + supplies
-                + "} " + super.toString();
-    }
+  @Override
+public String toString() {
+    return "Consultation {" +
+           "\n  idConsultation=" + idConsultation + "," +
+           "\n  serviceId=" + super.getIdService()+ "," +
+           "\n  serviceDate=" + super.getDate()+ "," +
+           "\n  pet=" + super.getPet() + "," +
+           "\n  employee=" + super.getEmployee() + "," +
+           "\n  typeService=" + super.getTypeService() + "," +
+           "\n  status=" + super.getStatus() + "," +
+           "\n  paid=" + super.getPaid() + "," +
+           "\n  reason='" + reason + '\'' + "," +
+           "\n  isControl=" + isControl + "," +
+           "\n  price=" + price + "," +
+           "\n  recommendations='" + recommendations + '\'' + "," +
+           "\n  diagnostic='" + diagnostic + '\'' + "," +
+           "\n  services=" + services + "," +
+           "\n  supplies=" + supplies +
+           "\n}";
+}
+
 
     @Override
     public void calcular() {
@@ -100,7 +109,7 @@ public class Consultation extends Service implements Facturable{
 
         private int serviceId;
         private LocalDateTime serviceDate;
-        private Pet pet;
+        private Animal pet;
         private Employee employee;
         private Type typeService;
         private Status status;
@@ -161,7 +170,7 @@ public class Consultation extends Service implements Facturable{
 
         }
 
-        public Builder setPet(Pet pet) {
+        public Builder setPet(Animal pet) {
             this.pet = pet;
             return this;
         }

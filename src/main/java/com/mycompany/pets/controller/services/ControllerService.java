@@ -1,6 +1,7 @@
 package com.mycompany.pets.controller.services;
 
 import com.mycompany.pets.controller.ControllerType;
+import com.mycompany.pets.controller.animal.ControllerAnimal;
 import com.mycompany.pets.controller.people.ControllerEmployee;
 import com.mycompany.pets.model.classes.people.Employee;
 import com.mycompany.pets.model.classes.enumsandinterfaces.Status;
@@ -88,7 +89,7 @@ public abstract class ControllerService implements Readable, Createable, Updatea
         CRUD.setConnection(DBConnection.connectionDB());
         String query = """
                    SELECT 
-                       IDService, date, IDEmployee, IDPet, IDTypeService,status,paid
+                       IDService, dateService, IDEmployee, IDPet, IDTypeService,status,paid
                    FROM 
                        Services
                    WHERE 
@@ -101,9 +102,9 @@ public abstract class ControllerService implements Readable, Createable, Updatea
             if (rs != null && rs.next()) {
                 Service service = new Service();
                 service.setIdService(rs.getInt("IDService"));
-                service.setDate(UtilityTime.changeSqlDate(rs.getString("date")));
+                service.setDate(UtilityTime.changeSqlDate(rs.getString("dateService")));
                 service.setEmployeee(ControllerEmployee.search(rs.getInt("IDEmployee")));
-                service.setPet(AnimalUtils.());
+                service.setPet(ControllerAnimal.search(rs.getInt("IDPet")));
                 service.setTypeService(ControllerType.search(rs.getInt("IDTypeService"), "ServiceType"));
                 String statusString = rs.getString("status");
                 Status status = Status.valueOf(statusString.toUpperCase());

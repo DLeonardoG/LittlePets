@@ -75,11 +75,21 @@ public class Owner extends Person{
     }
 
     
-    @Override
-    public String toString() {
-        return "Owner{" + "adress=" + adress + ", signature=" + signature + ", points=" + points + ", subscripcion=" + subscripcion + ", CUFE=" + CUFE + '}';
-    }
-
+@Override
+public String toString() {
+    return "---------------------\n" +
+           "Name: " + getName() + "\n" +
+           "ID: " + getID() + "\n" +
+           "Email: " + getEmail() + "\n" +
+           "Phone: " + getPhoneNumber() + "\n" +
+           "Address: " + adress + "\n" +
+           "Signature: " + signature + "\n" +
+           "Points: " + points + "\n" +
+           "Subscription: " + (subscripcion ? "Active" : "Inactive") + "\n" +
+           "CUFE: " + CUFE + "\n" +
+           "Contact Person: " + (contact != null ? contact.toString() : "None") + "\n" +
+           "---------------------";
+}
     
     
 }

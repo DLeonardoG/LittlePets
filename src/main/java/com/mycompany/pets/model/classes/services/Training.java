@@ -5,6 +5,7 @@ import com.mycompany.pets.model.classes.animals.Pet;
 import com.mycompany.pets.model.classes.TypePrice;
 import com.mycompany.pets.model.classes.TypePrice;
 import com.mycompany.pets.model.classes.enumsandinterfaces.Status;
+import com.mycompany.pets.model.classes.superclasses.Animal;
 import com.mycompany.pets.model.classes.superclasses.Service;
 import com.mycompany.pets.model.classes.superclasses.Type;
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ public class Training extends Service {
     private TypePrice typeBehavior;
     private double totalPrice;
 
-    public Training(String estimatedTime, String idTraining, TypePrice typeBreed, TypePrice typeBehavior, double totalPrice, int idService, LocalDateTime date, Pet pet, Employee employee, Type typeService, Status status, boolean paid) {
+    public Training(String estimatedTime, String idTraining, TypePrice typeBreed, TypePrice typeBehavior, double totalPrice, int idService, LocalDateTime date, Animal pet, Employee employee, Type typeService, Status status, boolean paid) {
         super(idService, date, pet, employee, typeService, status, paid);
         this.estimatedTime = estimatedTime;
         this.idTraining = idTraining;

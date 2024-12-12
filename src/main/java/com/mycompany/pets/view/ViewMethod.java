@@ -1,8 +1,18 @@
 package com.mycompany.pets.view;
 
 import com.mycompany.pets.controller.ControllerType;
+import com.mycompany.pets.controller.animal.ControllerAnimal;
+import com.mycompany.pets.controller.people.ControllerEmployee;
+import com.mycompany.pets.controller.people.ControllerInvoice;
 import com.mycompany.pets.controller.people.ControllerOwner;
 import com.mycompany.pets.controller.people.ControllerPerson;
+import com.mycompany.pets.controller.people.Invoice;
+import com.mycompany.pets.controller.people.additional.Consultas;
+import com.mycompany.pets.controller.people.additional.EmployeeConsultationCount;
+import com.mycompany.pets.controller.people.additional.InvoiceInfo;
+import com.mycompany.pets.controller.people.additional.MedicineInventory;
+import com.mycompany.pets.controller.people.additional.PetVisitInfo;
+import com.mycompany.pets.controller.people.additional.ServiceInfo;
 import com.mycompany.pets.controller.services.ControllerAppointment;
 import com.mycompany.pets.controller.services.ControllerConsultation;
 import com.mycompany.pets.controller.services.ControllerGrooming;
@@ -27,6 +37,7 @@ import com.mycompany.pets.model.classes.superclasses.Type;
 import com.mycompany.pets.model.classes.supplies.Medicine;
 import com.mycompany.pets.model.classes.supplies.Vaccine;
 import com.mycompany.pets.model.classes.utilities.Utility;
+import java.util.List;
 import java.util.Scanner;
 
 public class ViewMethod {
@@ -111,22 +122,79 @@ public class ViewMethod {
         Type typeServicie = ControllerType.assign(scanner, "Service");
         Facturable service;
         switch (typeServicie.getType()) {
-            case "Consultation":
+            case "Consultations":
                 Consultation consultation = ServiceFactory.registerAppointment(scanner, typeServicie);
                 ControllerService.add(consultation);
                 ControllerAppointment.add(consultation);
+                int idIn = Utility.getMaxID("Invoices");
+                Invoice inv = new Invoice(idIn + 1, consultation.getPet().getOwner(), 100.00, typeServicie);
+                ControllerInvoice.add(inv);
                 System.out.println("Finally Succesfully :)");
+                System.out.println(inv);
                 break;
             case "Grooming":
                 Grooming grooming = ServiceFactory.registerGrooming(scanner, typeServicie);
                 ControllerService.add(grooming);
                 ControllerGrooming.add(grooming);
+                idIn = Utility.getMaxID("Invoices");
+                inv = new Invoice(idIn + 1, grooming.getPet().getOwner(), 200.00, typeServicie);
+                ControllerInvoice.add(inv);
+                System.out.println(inv);
                 System.out.println("Finally Succesfully :)");
                 break;
             case "Training":
                 Training training = ServiceFactory.registerTraining(scanner, typeServicie);
                 ControllerService.add(training);
                 ControllerTraining.add(training);
+                idIn = Utility.getMaxID("Invoices");
+                inv = new Invoice(idIn + 1, training.getPet().getOwner(), training.getTotalPrice(), typeServicie);
+                ControllerInvoice.add(inv);
+                System.out.println(inv);
+                System.out.println("Finally Succesfully :)");
+                break;
+            case "Pharmacy":
+                Service pha = ServiceFactory.registerService(scanner, typeServicie);
+                ControllerService.add(pha);
+                idIn = Utility.getMaxID("Invoices");
+                inv = new Invoice(idIn + 1, pha.getPet().getOwner(), 90, typeServicie);
+                ControllerInvoice.add(inv);
+                System.out.println(inv);
+                System.out.println("Finally Succesfully :)");
+                break;
+            case "Procedures":
+                Service tra = ServiceFactory.registerService(scanner, typeServicie);
+                ControllerService.add(tra);
+                idIn = Utility.getMaxID("Invoices");
+                inv = new Invoice(idIn + 1, tra.getPet().getOwner(), 990, typeServicie);
+                ControllerInvoice.add(inv);
+                System.out.println(inv);
+                System.out.println("Finally Succesfully :)");
+                break;
+            case "Daycare":
+                Service day = ServiceFactory.registerService(scanner, typeServicie);
+                ControllerService.add(day);
+                idIn = Utility.getMaxID("Invoices");
+                inv = new Invoice(idIn + 1, day.getPet().getOwner(), 95.0, typeServicie);
+                ControllerInvoice.add(inv);
+                System.out.println(inv);
+                System.out.println("Finally Succesfully :)");
+                break;
+            case "Deworming":
+                Service dew = ServiceFactory.registerService(scanner, typeServicie);
+                ControllerService.add(dew);
+                idIn = Utility.getMaxID("Invoices");
+                inv = new Invoice(idIn + 1, dew.getPet().getOwner(), 90, typeServicie);
+                ControllerInvoice.add(inv);
+                System.out.println(inv);
+                System.out.println("Finally Succesfully :)");
+                break;
+            case "Vaccination":
+                Service vac = ServiceFactory.registerService(scanner, typeServicie);
+                ControllerService.add(vac);
+                idIn = Utility.getMaxID("Invoices");
+                inv = new Invoice(idIn + 1, vac.getPet().getOwner(), 150.0, typeServicie);
+                ControllerInvoice.add(inv);
+                System.out.println(inv);
                 System.out.println("Finally Succesfully :)");
                 break;
             default:
@@ -137,6 +205,9 @@ public class ViewMethod {
 
     public static void viewVaccines(Scanner scanner) {
         ControllerVaccine.list().forEach(System.out::println);
+    }
+    public static void viewOwner(Scanner scanner) {
+        ControllerOwner.list().forEach(System.out::println);
     }
 
     public static void attendService(Scanner scanner) {
@@ -154,8 +225,75 @@ public class ViewMethod {
     public static void viewCalendar(Scanner scanner) {
         ControllerAppointment.list().forEach(System.out::println);
     }
+
+    public static void viewInvoice(Scanner scanner) {
+        ControllerInvoice.list().forEach(System.out::println);
+    }
+    public static void viewEmployees(Scanner scanner) {
+        ControllerEmployee.list().forEach(System.out::println);
+    }
+
     public static void viewAppoinmentsFilter(Scanner scanner) {
         ControllerAppointment.listSpecial(Status.CANCELLED).forEach(System.out::println);
+    }
+
+    public static void viewAnimals(Scanner scanner) {
+        ControllerAnimal.listAnimals().forEach(System.out::println);
+    }
+
+    // Function for Pets Attended Report
+    public static void petsAttendedReport() {
+        List<PetVisitInfo> petVisitInfos = Consultas.petsAttendedReport();
+        for (PetVisitInfo petVisit : petVisitInfos) {
+            System.out.println("Pet Name: " + petVisit.getPetName());
+            System.out.println("Number of Visits: " + petVisit.getVisitCount());
+            System.out.println("Number of Procedures: " + petVisit.getProcedureCount());
+            System.out.println("Number of Vaccines: " + petVisit.getVaccineCount());
+            System.out.println("---");
+        }
+    }
+
+// Function for Most Requested Services Report
+    public static void mostRequestedServicesReport() {
+        List<ServiceInfo> serviceInfos = Consultas.mostRequestedServicesReport();
+        for (ServiceInfo service : serviceInfos) {
+            System.out.println("Service Type: " + service.getServiceType());
+            System.out.println("Service Count: " + service.getServiceCount());
+            System.out.println("---");
+        }
+    }
+
+// Function for Employee Performance Report
+    public static void employeePerformanceReport() {
+        List<EmployeeConsultationCount> employeeConsultationCounts = Consultas.employeePerformanceReport();
+        for (EmployeeConsultationCount employee : employeeConsultationCounts) {
+            System.out.println("Employee Name: " + employee.getEmployeeName());
+            System.out.println("Number of Consultations: " + employee.getConsultationCount());
+            System.out.println("---");
+        }
+    }
+
+// Function for Billing Report
+    public static void billingReport() {
+        List<InvoiceInfo> invoiceInfos = Consultas.billingReport();
+        for (InvoiceInfo invoice : invoiceInfos) {
+            System.out.println("Total Revenue: " + invoice.getTotalRevenue());
+            System.out.println("Month: " + invoice.getInvoiceMonth());
+            System.out.println("Year: " + invoice.getInvoiceYear());
+            System.out.println("---");
+        }
+    }
+
+// Function for Supplies Usage Report
+    public static void suppliesUsageReport() {
+        List<MedicineInventory> medicineInventories = Consultas.suppliesUsageReport();
+        for (MedicineInventory medicine : medicineInventories) {
+            System.out.println("Medicine Name: " + medicine.getMedicineName());
+            System.out.println("Usage Count: " + medicine.getUsageCount());
+            System.out.println("Expiration Date: " + medicine.getExpirationDate());
+            System.out.println("Expiration Status: " + medicine.getExpirationStatus());
+            System.out.println("---");
+        }
     }
 
 }

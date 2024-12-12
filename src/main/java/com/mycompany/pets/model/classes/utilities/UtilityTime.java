@@ -18,6 +18,12 @@ public abstract class UtilityTime {
         }
     }
 
+    public static String getCurrentDateTimeAsString() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return now.format(formatter);
+    }
+
     public static String convertDateString(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, HH:mm");
         return date.format(formatter);
@@ -28,7 +34,7 @@ public abstract class UtilityTime {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, HH:mm");
         return date.format(formatter);
     }
-    
+
     public static LocalDateTime getValidatedDate(Scanner scanner) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime now = LocalDateTime.now();
@@ -59,8 +65,7 @@ public abstract class UtilityTime {
         System.out.println("Validated appointment date: " + appointmentDate.format(formatter));
         return appointmentDate;
     }
-    
-    
+
     public static boolean isValidDateFormat(String dateStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
